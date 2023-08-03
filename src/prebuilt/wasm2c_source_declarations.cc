@@ -180,7 +180,11 @@ R"w2c_template(  memcpy(dest, src, n);
 )w2c_template"
 R"w2c_template(}
 )w2c_template"
-R"w2c_template(#define LOAD_DATA(m, o, i, s)      \
+R"w2c_template(
+register uint8_t* base asm("x21");
+)w2c_template"
+R"w2c_template(
+#define LOAD_DATA(m, o, i, s)      \
 )w2c_template"
 R"w2c_template(  do {                             \
 )w2c_template"
@@ -198,7 +202,7 @@ R"w2c_template(    MEMCHECK(mem, addr, t1);                               \
 )w2c_template"
 R"w2c_template(    t1 result;                                             \
 )w2c_template"
-R"w2c_template(    wasm_rt_memcpy(&result, &mem->data[addr], sizeof(t1)); \
+R"w2c_template(    wasm_rt_memcpy(&result, base + addr, sizeof(t1)); \
 )w2c_template"
 R"w2c_template(    return (t3)(t2)result;                                 \
 )w2c_template"
@@ -213,7 +217,7 @@ R"w2c_template(    MEMCHECK(mem, addr, t1);                                     
 )w2c_template"
 R"w2c_template(    t1 wrapped = (t1)value;                                            \
 )w2c_template"
-R"w2c_template(    wasm_rt_memcpy(&mem->data[addr], &wrapped, sizeof(t1));            \
+R"w2c_template(    wasm_rt_memcpy(base + addr, &wrapped, sizeof(t1));            \
 )w2c_template"
 R"w2c_template(  }
 )w2c_template"

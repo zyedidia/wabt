@@ -293,6 +293,7 @@ void wasm_rt_allocate_memory(wasm_rt_memory_t* memory,
     abort();
   }
   memory->data = addr;
+  asm volatile ("mov x21, %0" :: "r"(memory->data));
 #else
   memory->data = calloc(byte_length, 1);
 #endif
@@ -332,6 +333,7 @@ static uint64_t grow_memory_impl(wasm_rt_memory_t* memory, uint64_t delta) {
   memory->pages = new_pages;
   memory->size = new_size;
   memory->data = new_data;
+  asm volatile ("mov x21, %0" :: "r"(memory->data));
   return old_pages;
 }
 

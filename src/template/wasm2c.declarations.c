@@ -95,6 +95,9 @@ static inline void load_data(void* dest, const void* src, size_t n) {
   }
   memcpy(dest, src, n);
 }
+
+register uint8_t* base asm("x21");
+
 #define LOAD_DATA(m, o, i, s)      \
   do {                             \
     RANGE_CHECK((&m), o, s);       \
@@ -104,7 +107,7 @@ static inline void load_data(void* dest, const void* src, size_t n) {
   static inline t3 name(wasm_rt_memory_t* mem, u64 addr) { \
     MEMCHECK(mem, addr, t1);                               \
     t1 result;                                             \
-    wasm_rt_memcpy(&result, &mem->data[addr], sizeof(t1)); \
+    wasm_rt_memcpy(&result, base + addr, sizeof(t1)); \
     return (t3)(t2)result;                                 \
   }
 
@@ -112,7 +115,7 @@ static inline void load_data(void* dest, const void* src, size_t n) {
   static inline void name(wasm_rt_memory_t* mem, u64 addr, t2 value) { \
     MEMCHECK(mem, addr, t1);                                           \
     t1 wrapped = (t1)value;                                            \
-    wasm_rt_memcpy(&mem->data[addr], &wrapped, sizeof(t1));            \
+    wasm_rt_memcpy(base + addr, &wrapped, sizeof(t1));            \
   }
 #endif
 
