@@ -78,7 +78,6 @@ static inline void load_data(void* dest, const void* src, size_t n) {
     t1 result;                                                         \
     wasm_rt_memcpy(&result, &mem->data[mem->size - addr - sizeof(t1)], \
                    sizeof(t1));                                        \
-    wasm_asm("" ::"r"(result));                                        \
     return (t3)(t2)result;                                             \
   }
 
@@ -106,7 +105,6 @@ static inline void load_data(void* dest, const void* src, size_t n) {
     MEMCHECK(mem, addr, t1);                               \
     t1 result;                                             \
     wasm_rt_memcpy(&result, &mem->data[addr], sizeof(t1)); \
-    wasm_asm("" ::"r"(result));                            \
     return (t3)(t2)result;                                 \
   }
 

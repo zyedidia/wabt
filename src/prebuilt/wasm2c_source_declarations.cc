@@ -147,8 +147,6 @@ R"w2c_template(    wasm_rt_memcpy(&result, &mem->data[mem->size - addr - sizeof(
 )w2c_template"
 R"w2c_template(                   sizeof(t1));                                        \
 )w2c_template"
-R"w2c_template(    wasm_asm("" ::"r"(result));                                        \
-)w2c_template"
 R"w2c_template(    return (t3)(t2)result;                                             \
 )w2c_template"
 R"w2c_template(  }
@@ -201,8 +199,6 @@ R"w2c_template(    MEMCHECK(mem, addr, t1);                               \
 R"w2c_template(    t1 result;                                             \
 )w2c_template"
 R"w2c_template(    wasm_rt_memcpy(&result, &mem->data[addr], sizeof(t1)); \
-)w2c_template"
-R"w2c_template(    wasm_asm("" ::"r"(result));                            \
 )w2c_template"
 R"w2c_template(    return (t3)(t2)result;                                 \
 )w2c_template"
