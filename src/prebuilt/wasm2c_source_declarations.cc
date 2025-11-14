@@ -258,7 +258,7 @@ R"w2c_template(  RANGE_CHECK(mem, a, sizeof(t));
 R"w2c_template(
 #ifdef __GNUC__
 )w2c_template"
-R"w2c_template(#define FORCE_READ_INT(var) __asm__("" ::"r"(var));
+R"w2c_template(#define FORCE_READ_INT(var)
 )w2c_template"
 R"w2c_template(// Clang on Mips requires "f" constraints on floats
 )w2c_template"
@@ -268,11 +268,11 @@ R"w2c_template(#if defined(__clang__) && \
 )w2c_template"
 R"w2c_template(    (defined(mips) || defined(__mips__) || defined(__mips))
 )w2c_template"
-R"w2c_template(#define FORCE_READ_FLOAT(var) __asm__("" ::"f"(var));
+R"w2c_template(#define FORCE_READ_FLOAT(var)
 )w2c_template"
 R"w2c_template(#else
 )w2c_template"
-R"w2c_template(#define FORCE_READ_FLOAT(var) __asm__("" ::"r"(var));
+R"w2c_template(#define FORCE_READ_FLOAT(var)
 )w2c_template"
 R"w2c_template(#endif
 )w2c_template"

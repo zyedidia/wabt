@@ -138,14 +138,14 @@ static inline bool add_overflow(uint64_t a, uint64_t b, uint64_t* resptr) {
   RANGE_CHECK(mem, a, sizeof(t));
 
 #ifdef __GNUC__
-#define FORCE_READ_INT(var) __asm__("" ::"r"(var));
+#define FORCE_READ_INT(var)
 // Clang on Mips requires "f" constraints on floats
 // See https://github.com/llvm/llvm-project/issues/64241
 #if defined(__clang__) && \
     (defined(mips) || defined(__mips__) || defined(__mips))
-#define FORCE_READ_FLOAT(var) __asm__("" ::"f"(var));
+#define FORCE_READ_FLOAT(var)
 #else
-#define FORCE_READ_FLOAT(var) __asm__("" ::"r"(var));
+#define FORCE_READ_FLOAT(var)
 #endif
 #else
 #define FORCE_READ_INT(var)
